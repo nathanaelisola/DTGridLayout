@@ -25,9 +25,10 @@ and open the template in the editor.
 			$endStr = '</a>';
 			$offset = 0;
 			$test = '';
+			$numOfLinks = substr_count($originalText, $searchStr);
+			$count = 0;
 
-			$aTagStart = true;
-			// while ($aTagStart){
+  			while ($count < $numOfLinks){
 				$aTagStart = strpos($originalText,$searchStr, $offset);
 				$urlStart = strpos($originalText, "href=", $aTagStart) + 6;
 
@@ -44,6 +45,12 @@ and open the template in the editor.
 				$offset = $aTagStart + $aTagLen;
 				
 				$ch = curl_init();
+				   curl_setopt($ch, CURLOPT_USERAGENT,'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.52 Safari/537.17');
+				   curl_setopt($ch, CURLOPT_AUTOREFERER, true); 
+				   curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+				   curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+				   curl_setopt($ch, CURLOPT_VERBOSE, 1);
+				   curl_setopt($ch, CURLOPT_AUTOREFERER, true); 
 				curl_setopt_array($ch, array(
 					CURLOPT_URL => $url
 				,	CURLOPT_HEADER => 0
@@ -51,32 +58,29 @@ and open the template in the editor.
 				,	CURLOPT_ENCODING => 'gzip'
 				));
 				$html = curl_exec($ch);
-
-				$doc = new DomDocument();
-				$doc->validateOnParse = true;
-				$doc->Load($html);
 				
+				$postIDStart = strpos($html, "data-post-id=") + 14;
+				$postIDLen = strpos($html, ' ', $postIDStart + 1) - ($postIDStart + 1);
 				
-				$bodyTag = $doc->getElementById('t-comments');
-	
-				echo $bodyTag;
-				// foreach ($bodyTag as $tag){
-					// echo $tag->nodeValue, PHP_EOL;
-				// }
+				$postID = subStr($html, $postIDStart, $postIDLen);
+								
+				$replacementString = <<<STRING
+[internal-link post_id="$postID"]$linkText-sp-[/internal-link]
+STRING;
+				$replacementString = str_replace("-sp-","",$replacementString);
+				$count++;
 				
-				// $postIDStart = strpos($html, "data-post-id=") + 14;
-				// $postIDLen = strpos($html, ' ', $postIDStart + 1) - ($postIDStart + 1);
+				$originalText = str_replace($aTag, $replacementString, $originalText);
 				
-				// $postID = subStr($html, $postIDStart, $postIDLen);
-				
-				// $test = "$test\n$url|$offset|$postIDStart|$postIDLen|$postID";
 				$offset = $aTagStart + $aTagLen;
+			$test = $test . " " . $replacementString;
+			}
 
-			// }
-			// echo "<textarea class=\"output\">$test</textarea>";
+			$test = $test . $replacementString . "\n\n";
+			echo "<textarea class=\"output-newBody\">$test</textarea>";
 
 
-        }
+        } 
         else {
             echo '<form action="DTInternalURL.php" method="post">
             <label for="oldBody">Insert body of HTML text:</label><textarea name="oldBody" class="bodyText"></textarea><br />

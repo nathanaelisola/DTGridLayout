@@ -53,6 +53,6 @@ CODE;
         }
         ?>
         
-        <p><a href="index.php">Home</a> <a href="DTInfogram.php">Restart</a></p>
+        <p><a href="index.php" class="nav">Home</a> <a href="DTInfogram.php" class="nav">Restart</a></p>
     </body>
 </html>
