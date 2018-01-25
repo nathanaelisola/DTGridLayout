@@ -12,6 +12,11 @@ h1{
     font-size: 300%;
     padding: 0px;
     margin: 0px;
+
+}
+
+div.dynamic {
+	align:center;
 }
 h3{
     font-size: 200%;
@@ -34,14 +39,28 @@ input {
     white-space: pre-wrap;
     width: 300px;
     height: 50px;
-    font-size: 1.2em;
 }
+
 textarea {
     white-space: pre-wrap;
     width: 300px;
     height: 25px;
     margin-bottom: 20px;
     border: 1px solid darkturquoise;
+    font-size: 1.25em;
+}
+
+textarea.output-newBody{
+    background: #ddd;
+    width: 60%;
+    height: 25em;	
+	font-size: .6em;
+}
+
+textarea.bodyText {
+    width: 60%;
+    height: 25em;	
+	font-size: .6em;
 }
 
 textarea.desc {
@@ -50,7 +69,6 @@ textarea.desc {
 
 textarea.output{
     background: #ddd;
-    white-space: pre-wrap;
     width: 750px;
     height: 300px;
 }
@@ -58,7 +76,7 @@ form > textarea {
     resize:none;
 }
 
-input[type=submit]{
+input[type=button], input[type=submit]{
     width: 306px;
     height: 50px;
     background-color: darkturquoise;
@@ -78,6 +96,11 @@ a:link, a:visited {
     text-align: center; 
     text-decoration: none;
     display: inline-block;
+	width: 350px;
+}
+
+a:link.nav{
+		width: 100px
 }
 
 a:hover, a:active {

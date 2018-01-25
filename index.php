@@ -22,5 +22,8 @@ and open the template in the editor.
         <p>
             <a href="DTInfogram.php">Digital Trends Infogram Text Snipper</a> 
         </p>
+        <p>
+            <a href="DTInternalURL.php">Digital Trends Internal URL Cleaner</a> 
+        </p>
     </body>
 </html>

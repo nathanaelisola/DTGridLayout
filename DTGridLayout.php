@@ -10,6 +10,7 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title></title>
         <link rel="stylesheet" type="text/css" href="stylesheet.css">
+		<script src="DTFunctions.js"></script>
     </head>
 
     <body>
@@ -22,8 +23,8 @@ and open the template in the editor.
             $pr = filter_input(INPUT_POST, 'product', FILTER_SANITIZE_STRING);
             $url = filter_input(INPUT_POST, 'URL', FILTER_SANITIZE_STRING);
 //            $desc = $_POST['desc'];
-                $desc = str_replace('\r','<br />', $_POST['desc']);
-//            $desc = filter_input(INPUT_POST, 'desc', FILTER_SANITIZE_STRING);
+//                $desc = str_replace('\r','<br />', $_POST['desc']);
+            $desc = filter_input(INPUT_POST, 'desc', FILTER_SANITIZE_STRING);
 //                $desc = str_replace(' ', '&nbsp;', $desc);
 //                $desc = nl2br($desc);
             
@@ -51,7 +52,7 @@ $pr</h2>
 $desc
 
 <p style="text-align: center;"><strong>Buy it now at:</strong></p>
-<p style="text-align: center;">[affilaite-link affiliate_name="$affn" affiliate_url="$affl" class="m-aff-button"]$affn-sp-[/affiliate-link]</p>
+<p style="text-align: center;">[affiliate-link affiliate_name="$affn" affiliate_url="$affl" class="m-aff-button"]$affn-sp-[/affiliate-link]</p>
 
 </div>
 GENERATEDCODE;
@@ -67,15 +68,15 @@ GENERATEDCODE;
             <label for="headline">Descriptive headline:</label><textarea name="headline"></textarea><br />
             <label for="product">Product name:</label><textarea name="product"></textarea><br />
             <label for="desc">Description:</label><textarea class="desc" name="desc"></textarea><br />
-            <label for="URL">Photo URL:</label><textarea name= name="URL"></textarea><br />
-            <label for="affname">Affiliate name:</label><textarea name= name="affname"></textarea><br />
-            <label for="afflink">Affiliate link:</label><textarea name= name="afflink"></textarea><br />
+            <label for="URL">Photo URL:</label><textarea name="URL"></textarea><br />
+            <label for="affname">Affiliate name:</label><textarea name="affname"></textarea><br />
+            <label for="afflink">Affiliate link:</label><textarea name="afflink"></textarea><br />
             <input type="submit" name="submit" id="submit">
         </form>            
         ';
         }
         ?>
         
-        <p><a href="index.php">Home</a> <a href="DTGridLayout.php">Restart</a></p>
+        <p><a href="index.php" class="nav">Home</a> <a href="DTGridLayout.php" class="nav">Restart</a></p>
     </body>
 </html>

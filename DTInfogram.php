@@ -14,13 +14,17 @@ and open the template in the editor.
     </head>
 
     <body>
+		<div align="center">
         <h3>DT Grid Layout</h3>
         <br />
         <?php
-        // put your code here
+        // check for existing form submission
         if (isset($_POST['submit'])){
+			
             $originalText = $_POST['infogram'];
             
+			// this if prevents user from entering text too small. any smaller than 6 chars generates an error
+			// as is, user can enter gibberish and still get output, which is fine
             if (strlen($originalText) > 6){
                 $idStart = strpos($originalText,"id=") + 4;
                 $idLen = strpos($originalText,"\"",$idStart) - $idStart;
@@ -31,7 +35,7 @@ and open the template in the editor.
                 $title = substr($originalText, $titleStart, $titleLen);
 
 
-
+				// creates output
                  $generatedCode = <<<CODE
 [embed-module shortcode="infogram-responsive" id="$id" title="$title"]
 CODE;
@@ -39,6 +43,8 @@ CODE;
             
                 echo "<textarea class=\"output\">$generatedCode</textarea>";                
             }
+			
+			// for input too short.
             else {
                 echo "<p>That input is not long enough.</p><br />";
             }
@@ -53,6 +59,7 @@ CODE;
         }
         ?>
         
-        <p><a href="index.php">Home</a> <a href="DTInfogram.php">Restart</a></p>
+        <p><a href="index.php" class="nav">Home</a> <a href="DTInfogram.php" class="nav">Restart</a></p>
+		</div>
     </body>
 </html>
