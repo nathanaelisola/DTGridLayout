@@ -34,14 +34,26 @@ input {
     white-space: pre-wrap;
     width: 300px;
     height: 50px;
-    font-size: 1.2em;
 }
+
 textarea {
     white-space: pre-wrap;
     width: 300px;
     height: 25px;
     margin-bottom: 20px;
     border: 1px solid darkturquoise;
+    font-size: 1.25em;
+}
+
+textarea.output-newBody{
+    background: #ddd;
+    width: 950px;
+    height: 700px;	
+}
+
+textarea.bodyText {
+	width: 950px;
+	height: 700px;
 }
 
 textarea.desc {
@@ -50,7 +62,6 @@ textarea.desc {
 
 textarea.output{
     background: #ddd;
-    white-space: pre-wrap;
     width: 750px;
     height: 300px;
 }
@@ -58,7 +69,7 @@ form > textarea {
     resize:none;
 }
 
-input[type=submit]{
+input[type=button], input[type=submit]{
     width: 306px;
     height: 50px;
     background-color: darkturquoise;
@@ -78,6 +89,11 @@ a:link, a:visited {
     text-align: center; 
     text-decoration: none;
     display: inline-block;
+	width: 350px;
+}
+
+a:link.nav{
+		width: 100px
 }
 
 a:hover, a:active {
