@@ -9,7 +9,7 @@ and open the template in the editor.
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title></title>
-        <link rel="stylesheet" type="text/css" href="stylesheet.css">
+        <link rel="stylesheet" type="text/css" href="assets/css/stylesheet.css">
         
     </head>
 
@@ -48,7 +48,7 @@ and open the template in the editor.
 
 				// <a>get this text to put into internal links later</a>
 				$linkTextStart = strpos($originalText, '>', $aTagStart) + 1;
-				$linkTextLen = strpos($originalText, '<' ,$linkTextStart) - $linkTextStart;
+				$linkTextLen = strpos($originalText, '</a>' ,$linkTextStart) - $linkTextStart;
 				$linkText = subStr($originalText, $linkTextStart, $linkTextLen);
 				
 				// connect to website, setting parameters necessary to get the proper html to parse_ini_file
@@ -71,12 +71,13 @@ and open the template in the editor.
 				$html = curl_exec($ch);
 				
 				// search in html for the postid, make a string of it
-				$postIDStart = strpos($html, "postid=");				
+				$postIDStart = strpos($html, "postid");				
+				
 				
 				// when postID != "" then we have a postID, good to go. ignores links that have no postID
 				if ($postIDStart != ""){
 				$postIDStart += 7;
-				$postIDLen = strpos($html, ' ', $postIDStart + 1) - ($postIDStart + 1);
+				$postIDLen = strpos($html, ' ', $postIDStart) - ($postIDStart);
 				
 				$postID = subStr($html, $postIDStart, $postIDLen);
 				
@@ -101,9 +102,12 @@ STRING;
 			}
 			
 			// outputs modified text
+	
 			echo "<textarea class=\"output-newBody\">$originalText</textarea>";
 
-
+			// debugging, just change the textarea contents to view variables and whatnot	
+//			echo "<textarea class=\"output-newBody\">$linkText|$linkTextStart |$linkTextLen</textarea>";
+			 
         } 
 		
 		// when no form data has been entered
