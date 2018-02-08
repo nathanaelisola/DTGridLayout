@@ -10,7 +10,7 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title></title>
         <link rel="stylesheet" type="text/css" href="assets/css/stylesheet.css">
-		<script src="assets/js/DTFunctions.js"></script>
+		<script src="assets/js/DTfunctions.js"></script>
 		<style>
 			.hidden {display: none;}
 		</style>
@@ -23,14 +23,16 @@ and open the template in the editor.
 			<form id="layoutForm">
 				<textarea id="oldGridBody" name="oldBody" class="bodyText" placeholder="Paste the text you want to modify into this box"></textarea>
 				<br />
-				<input type="button" name="submit" id="submit" value="Add" onclick="getFormData()">
+				<input type="button" name="submit" id="submit" value="View" onclick="getFormData()">
 			</form></div>          
        
-		<div id="output-div" class="hidden"><textarea id="output-grid" class="output-grid"></textarea></div>
 		<!--
 		<div id="preview-div" class="hidden"><object id="preview-obj" type="text/html"></object></div>
         -->
 		<div id="preview-div" class="hidden"></div>
-        <p><a href="index.php" class="nav">Home</a> <a href="DTGridLayout.php" class="nav" onclick="clearSaveData()">Restart</a></p>
+		<br />
+		<div id="output-div" class="hidden"><textarea id="output-grid" class="output-grid"></textarea></div>
+
+        <a href="index.php" class="nav">Home</a> <a href="DTGridLayout.php" class="nav" onclick="clearSaveData()">Restart</a>
     </div></body>
 </html>

@@ -44,28 +44,36 @@ function modifyFormData(data){
 	let arr = [];
 	let offset = 0;
 	
-	let grids = text.split(closeTag).length - 1;
 
+	let h2Count = text.split(closeTag).length - 1;
 
-	//modify text
-	for (i; i < grids; i++){
-		let h2Start = text.indexOf("<h2>", offset);
-		let h2End = text.indexOf("<h2>", h2Start + 1); //finds the start of the NEXT h2
-		let subText = "";
+	// if it doesn't find <h2>
+	if (h2Count == 0){
+		let newText = gridFormatter(text);
+		text = text.split(text).join(newText);
+	} else {
 		
-		if (h2End == -1){
-			subText = text.slice(h2Start);
-		} else {
-			subText = text.slice(h2Start, h2End);
-		}
-		
-		let newText = gridFormatter(subText);
-		// console.log(newText);
-		
-		text = text.split(subText).join(newText);
-		
-		offset = h2Start + 4; // so it ignores the previous <h2>
 	}
+	
+		//modify text
+		for (i; i < h2Count; i++){
+			let h2Start = text.indexOf("<h2>", offset);
+			let h2End = text.indexOf("<h2>", h2Start + 1); //finds the start of the NEXT h2
+			let subText = "";
+			
+			if (h2End == -1){
+				subText = text.slice(h2Start);
+			} else {
+				subText = text.slice(h2Start, h2End);
+			}
+			
+			let newText = gridFormatter(subText);
+			// console.log(newText);
+			
+			text = text.split(subText).join(newText);
+			
+			offset = h2Start + 4; // so it ignores the previous <h2>
+		}
 	
 	return text;
 	
@@ -80,7 +88,6 @@ function gridFormatter(subText){
 	let delim = "|";
 	
 	let h3Count = subText.split("<h3>").length;
-	
 	subText = subText.replace(/\<h3\>/g, "<h3><strong>");
 	subText = subText.replace(/\<\/h3\>/g, "</strong></h3>");
 
@@ -88,24 +95,29 @@ function gridFormatter(subText){
 		// get the text blurb to modify
 		h3Start = subText.indexOf("<h3>", offset);
 		h3End = subText.indexOf("</a></p>", h3Start + 1) + 8;
-		
 		// prevents it from looping back on itself?
 		if (h3Start == -1){
 			break;
 		}
-		
-		// puts the separate chunks into an array		
-		if (h3End == -1){
-			let temp = [h3Start, h3End, subText.slice(h3Start)];
-			arr.push(temp);
-//			arr.push(h3Start + delim + h3End + delim + subText.slice(h3Start));
-		} else {		
-			let temp = [h3Start, h3End, subText.slice(h3Start, h3End)];
-			arr.push(temp);
 
-//			arr.push(h3Start + delim + h3End + delim + subText.slice(h3Start, h3End));
+		// tests for already gridded fields
+		let divTest = subText.slice(h3Start - 5, h3Start);
+		if (!divTest === "<div>"){
+		
+			// puts the separate chunks into an array		
+			if (h3End == -1){
+				let temp = [h3Start, h3End, subText.slice(h3Start)];
+				arr.push(temp);
+	//			arr.push(h3Start + delim + h3End + delim + subText.slice(h3Start));
+			} else {		
+				let temp = [h3Start, h3End, subText.slice(h3Start, h3End)];
+				arr.push(temp);
+
+	//			arr.push(h3Start + delim + h3End + delim + subText.slice(h3Start, h3End));
+			}
 		}
 		offset = h3Start + 4; // so it ignores the previous <h3>
+
 	} 
 	
 	// modify the text in the array and replace it in original string
