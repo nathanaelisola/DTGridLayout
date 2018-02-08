@@ -50,7 +50,7 @@ textarea {
     font-size: 1.25em;
 }
 
-textarea.output-newBody{
+textarea.output-newBody, textarea.output-grid{
     background: #ddd;
     width: 60%;
     height: 25em;	
@@ -82,11 +82,18 @@ input[type=button], input[type=submit]{
     background-color: darkturquoise;
     color: white;
     padding: 14px 25px;
+	margin: 2px;
     text-align: center; 
     text-decoration: none;
     display: inline-block;
     border: 0;
     font-size: 125%;
+}
+
+#preview-div {
+	white-space:pre-wrap;
+	overflow:scroll;
+	height:600px;
 }
 
 a:link, a:visited {

@@ -9,13 +9,13 @@ and open the template in the editor.
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title></title>
-        <link rel="stylesheet" type="text/css" href="stylesheet.css">
+        <link rel="stylesheet" type="text/css" href="assets/css/stylesheet.css">
         
     </head>
 
     <body>
 		<div align="center">
-        <h3>DT Grid Layout</h3>
+        <h3>DT Infogram Generator</h3>
         <br />
         <?php
         // check for existing form submission
@@ -54,7 +54,7 @@ CODE;
         else {
             echo '<form action="DTInfogram.php" method="post">
             <label for="infogram">Insert infogram text:</label><textarea name="infogram"></textarea><br />
-            <input type="submit" name="submit" id="submit">
+            <input type="submit" name="submit" id="submit" onclick=getFormData()>
         </form>';
         }
         ?>
