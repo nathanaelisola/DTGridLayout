@@ -9,74 +9,28 @@ and open the template in the editor.
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title></title>
-        <link rel="stylesheet" type="text/css" href="stylesheet.css">
-		<script src="DTFunctions.js"></script>
+        <link rel="stylesheet" type="text/css" href="assets/css/stylesheet.css">
+		<script src="assets/js/DTFunctions.js"></script>
+		<style>
+			.hidden {display: none;}
+		</style>
     </head>
 
-    <body>
+    <body><div align="center">
         <h3>DT Grid Layout</h3>
         <br />
-        <?php
-        // put your code here
-        if (isset($_POST['submit'])){
-            $hl = filter_input(INPUT_POST, 'headline', FILTER_SANITIZE_STRING);
-            $pr = filter_input(INPUT_POST, 'product', FILTER_SANITIZE_STRING);
-            $url = filter_input(INPUT_POST, 'URL', FILTER_SANITIZE_STRING);
-//            $desc = $_POST['desc'];
-//                $desc = str_replace('\r','<br />', $_POST['desc']);
-            $desc = filter_input(INPUT_POST, 'desc', FILTER_SANITIZE_STRING);
-//                $desc = str_replace(' ', '&nbsp;', $desc);
-//                $desc = nl2br($desc);
-            
-            $affn = filter_input(INPUT_POST, 'affname', FILTER_SANITIZE_STRING);
-            $affl = filter_input(INPUT_POST, 'afflink', FILTER_SANITIZE_STRING);
-                        
-            if ($hl == ""){
-                $generatedCode = <<<GENERATEDCODE
-<div>
-<h2><strong>$pr</strong></h2>
-<img class="aligncenter size-large" src="$url" alt="" width="720" height="480" />
-\n$desc
-\n<p style="text-align: center;"><strong>Buy it now at:</strong></p>
-<p style="text-align: center;">[affiliate-link affiliate_name="$affn" affiliate_URL="$affl" class="m-aff-button']$affn-sp-[/affiliate-link]</p>
-\n</div>
-GENERATEDCODE;
-            }
-            else {
-                $generatedCode = <<<GENERATEDCODE
-<div>
-<h2 style="text-align: center;"><strong>$hl</strong>
-$pr</h2>
-<img class="aligncenter size-large" src="$url" alt="" width="720" height="480" />
-                        
-$desc
-
-<p style="text-align: center;"><strong>Buy it now at:</strong></p>
-<p style="text-align: center;">[affiliate-link affiliate_name="$affn" affiliate_url="$affl" class="m-aff-button"]$affn-sp-[/affiliate-link]</p>
-
-</div>
-GENERATEDCODE;
-            }
-                $generatedCode = str_replace("-sp-","",$generatedCode);
-                echo "<textarea class=\"output\">$generatedCode</textarea><br />";
-                
-        }
-        else { 
-            
-            echo '
-        <form id="layoutForm" action="DTGridLayout.php" method="post">
-            <label for="headline">Descriptive headline:</label><textarea name="headline"></textarea><br />
-            <label for="product">Product name:</label><textarea name="product"></textarea><br />
-            <label for="desc">Description:</label><textarea class="desc" name="desc"></textarea><br />
-            <label for="URL">Photo URL:</label><textarea name="URL"></textarea><br />
-            <label for="affname">Affiliate name:</label><textarea name="affname"></textarea><br />
-            <label for="afflink">Affiliate link:</label><textarea name="afflink"></textarea><br />
-            <input type="submit" name="submit" id="submit">
-        </form>            
-        ';
-        }
-        ?>
-        
-        <p><a href="index.php" class="nav">Home</a> <a href="DTGridLayout.php" class="nav">Restart</a></p>
-    </body>
+		<div id="form-div">
+			<form id="layoutForm">
+				<textarea id="oldGridBody" name="oldBody" class="bodyText" placeholder="Paste the text you want to modify into this box"></textarea>
+				<br />
+				<input type="button" name="submit" id="submit" value="Add" onclick="getFormData()">
+			</form></div>          
+       
+		<div id="output-div" class="hidden"><textarea id="output-grid" class="output-grid"></textarea></div>
+		<!--
+		<div id="preview-div" class="hidden"><object id="preview-obj" type="text/html"></object></div>
+        -->
+		<div id="preview-div" class="hidden"></div>
+        <p><a href="index.php" class="nav">Home</a> <a href="DTGridLayout.php" class="nav" onclick="clearSaveData()">Restart</a></p>
+    </div></body>
 </html>
