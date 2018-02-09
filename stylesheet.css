@@ -1,3 +1,4 @@
+@import url(https://www.digitaltrends.com/wp-content/themes/digitaltrends-2014/assets/styles/css/dt-single-foot.css?ver=1518041634061);
 /*
 To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
@@ -48,6 +49,7 @@ textarea {
     margin-bottom: 20px;
     border: 1px solid darkturquoise;
     font-size: 1.25em;
+	overflow-x: hidden;
 }
 
 textarea.output-newBody, textarea.output-grid{
@@ -76,6 +78,7 @@ form > textarea {
     resize:none;
 }
 
+/*
 input[type=button], input[type=submit]{
     width: 306px;
     height: 50px;
@@ -89,27 +92,71 @@ input[type=button], input[type=submit]{
     border: 0;
     font-size: 125%;
 }
-
+*/
 #preview-div {
 	white-space:pre-wrap;
-	overflow:scroll;
+	overflow-y:scroll;
+	overflow-x:hidden;
 	height:600px;
+	width:640px;
+	border:solid;
+	text-align: left; 
+	color:gray; 
+	font-size:1em;
+	line-height:1.33;
+	
+}
+/*
+#preview-div a {
+	background-color: white;
+    color: #5998ff;
+    padding: initial;
+    text-align: initial; 
+    text-decoration: none;
+    display: initial;
+	cursor: pointer;
 }
 
-a:link, a:visited {
-    background-color: darkturquoise;
+#preview-div p > a {
+	
+	background-color: #cc2522;
+	color: #fff; 
+	margin-bottom: 20px;
+	padding: .71429em 1.42857em;
+	width: 18%;
+	display: inline-block;
+	text-align: center;
+	text-transform: uppercase;
+	border-radius: 4px;
+	font-size: 1.10em;
+}
+
+
+#preview-div h3 > strong {
+	text-transform: uppercase;
+	background-color: #0095da;
+	color: white;
+	display: inline-block;
+	font-size: .6em;
+	width: 640px;
+	height: 35px;
+	text-align: center;
+	padding: 25px;
+}
+*/
+a.nav {
+	width: 350px;
+
+}
+
+a.nav, input[type=button]{
+	width:100px;
+	height: 20px;
+	background-color: darkturquoise;
     color: white;
     padding: 14px 25px;
     text-align: center; 
     text-decoration: none;
     display: inline-block;
-	width: 350px;
-}
-
-a:link.nav{
-		width: 100px
-}
-
-a:hover, a:active {
-    background-color: darkturquoise;
+	
 }
