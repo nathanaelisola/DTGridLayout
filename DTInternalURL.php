@@ -22,6 +22,7 @@ and open the template in the editor.
         if (isset($_POST['submit'])){
 
 			// declaring variables
+			$debug = 1;
 			$originalText = $_POST['oldBody'];
 			$lastChar = strlen($originalText);
 			$searchStr = '<a class="" href="https://www.digitaltrends.com';
@@ -30,10 +31,11 @@ and open the template in the editor.
 			$numOfLinks = substr_count($originalText, $searchStr); // determine how many links to change
 			$count = 0; // track number of loops to be run
 			$offset = 0;
+			$vd[$numOfLinks] = array();
 			
 			// will loop for only the number of DT links it finds, otherwise loop was running once extra
   			while ($count < $numOfLinks){
-				
+				$varprint = "";
 				// get starting point for our strings
 				$aTagStart = strpos($originalText,$searchStr, $offset);
 				$urlStart = strpos($originalText, "href=", $aTagStart) + 6;
@@ -49,7 +51,7 @@ and open the template in the editor.
 				// <a>get this text to put into internal links later</a>
 				$linkTextStart = strpos($originalText, '>', $aTagStart) + 1;
 				$linkTextLen = strpos($originalText, '</a>' ,$linkTextStart) - $linkTextStart;
-				$linkText = subStr($originalText, $linkTextStart, $linkTextLen);
+				$linkText = subStr($originalText, $linkTextStart, $linkTextLen);			
 				
 				// connect to website, setting parameters necessary to get the proper html to parse_ini_file
 				// prior to the setopts below, not every DT link was giving me the html. now it seems to work  on all links
@@ -69,16 +71,18 @@ and open the template in the editor.
 				,	CURLOPT_ENCODING => 'gzip'
 				));
 				$html = curl_exec($ch);
-				
 				// search in html for the postid, make a string of it
-				$postIDStart = strpos($html, "postid");				
+				//$bodyclasstext = strpos($html, "<body class=");
+				$bodyclasstext = strpos($html, "data-post-id=\"");
+//				$postIDStart = strpos($html, "postid", $bodyclasstext);				
+				$postIDStart = strpos($html, "data-post-id=\"");				
 				
 				
 				// when postID != "" then we have a postID, good to go. ignores links that have no postID
 				if ($postIDStart != ""){
-				$postIDStart += 7;
-				$postIDLen = strpos($html, ' ', $postIDStart) - ($postIDStart);
-				
+				$postIDStart += 14;
+				//$postIDLen = strpos($html, ' ', $postIDStart) - ($postIDStart);
+				$postIDLen = strpos($html, '"', $postIDStart) - $postIDStart;
 				$postID = subStr($html, $postIDStart, $postIDLen);
 				
 			
@@ -98,12 +102,33 @@ STRING;
 				else{
 					$offset = $aTagStart + $aTagLen;
 				}
+				
+				if ($debug > 0){
+					if ($debug == 1){
+						$varprint  = "atag: start-".$aTagStart." len-".$aTagLen." aTag-".$aTag."\n";
+						$varprint = $varprint . " url: start-".$urlStart." len-".$urlLen." url-".$url."\n";
+						$varprint = $varprint . "link: start-".$linkTextStart." len-".$linkTextLen." link-".$linkText."\n";
+						$varprint = $varprint . " pid: start-".$postIDStart." len-".$postIDLen." pid-".$postID."\n";
+						$varprint = $varprint . $replacementString . "\n\n";
+						$vd[$count] = $varprint;
+					}
+					if ($debug == 2){
+						$varprint = $html . "\n\n";
+					}
+				}	
 				$count++;
 			}
-			
-			// outputs modified text
 	
-			echo "<textarea class=\"output-newBody\">$originalText</textarea>";
+			// outputs modified text
+			
+			if ($debug == 1){
+				$varprint = "";
+				for ($i = 0; $i < $numOfLinks; $i++){
+					$varprint = $varprint . $vd[$i];
+				}
+			}
+	
+			echo "<textarea class=\"output-newBody\">$varprint$originalText</textarea>";
 
 			// debugging, just change the textarea contents to view variables and whatnot	
 //			echo "<textarea class=\"output-newBody\">$linkText|$linkTextStart |$linkTextLen</textarea>";
