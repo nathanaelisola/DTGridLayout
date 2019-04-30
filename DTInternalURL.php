@@ -22,7 +22,7 @@ and open the template in the editor.
         if (isset($_POST['submit'])){
 
 			// declaring variables
-			$debug = 1;
+			$debug = 0;
 			$originalText = $_POST['oldBody'];
 			$lastChar = strlen($originalText);
 			$searchStr = '<a class="" href="https://www.digitaltrends.com';
